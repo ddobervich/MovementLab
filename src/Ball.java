@@ -1,17 +1,15 @@
 import processing.core.PApplet;
 
-import java.util.Currency;
-
 public class Ball {
     private static final int GREEN = 0xff00ff00;
-    private static final int RIGHT = 0;
-    private static final int UP = 1;
-    private static final int DOWN = 2;
-    private static final int LEFT = 3;
+    private static final Movement RIGHT = new Movement(1, 0);
+    private static final Movement UP = new Movement(0, -1);
+    private static final Movement DOWN = new Movement(0, 1);
+    private static final Movement LEFT = new Movement(-1, 0);
 
     private float x, y, width, height;
     private int color;
-    private int[] actionPattern = {RIGHT, DOWN, LEFT, UP};
+    private Movement[] actionPattern = {RIGHT, DOWN, RIGHT, UP, LEFT, UP, LEFT, DOWN};
     private int currentAction = 0;
     private int timeToSwitch = 30;
     private int timer = 0;
@@ -22,6 +20,11 @@ public class Ball {
         this.width = 20;
         this.height = 20;
         this.color = GREEN;
+    }
+
+    public Ball setPattern(Movement[] pattern) {
+        this.actionPattern = pattern;
+        return this;
     }
 
     public Ball timeToSwitch(int newTime){
@@ -45,16 +48,8 @@ public class Ball {
     }
 
     public void move() {
-        int currentDirection = actionPattern[currentAction];
-        if (currentDirection == UP) {
-            moveInDirection(0, -1);
-        } else if (currentDirection == DOWN) {
-            moveInDirection(0, 1);
-        } else if (currentDirection == RIGHT) {
-            moveInDirection(1, 0);
-        } else if (currentDirection == LEFT) {
-            moveInDirection(-1, 0);
-        }
+        Movement currentDirection = actionPattern[currentAction];
+        moveInDirection(currentDirection.getDx(), currentDirection.getDy());
 
         timer--;
         if (timer <= 0) {
