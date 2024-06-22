@@ -17,6 +17,8 @@ public class Main extends PApplet {
     }
 
     public void draw() {
+        background(255);
+
         for (Ball b:ballList) {
             b.draw(this);
         }
