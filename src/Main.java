@@ -10,10 +10,10 @@ public class Main extends PApplet {
     }
 
     public void setup() {
-        ballList.add( new Ball(100, 100) );
-        ballList.add( new Ball(500, 500) );
-        ballList.add( new Ball(100, 500) );
-        ballList.add( new Ball(500, 100) );
+        ballList.add( new Ball(100, 100).timeToSwitch(20) );
+        ballList.add( new Ball(500, 500).timeToSwitch(30) );
+        ballList.add( new Ball(100, 500).timeToSwitch(40) );
+        ballList.add( new Ball(500, 100).timeToSwitch(50) );
     }
 
     public void draw() {
